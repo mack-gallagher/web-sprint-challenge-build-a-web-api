@@ -4,6 +4,7 @@ const express = require('express');
 
 const Project = require('./projects-model');
 const Action = require('../actions/actions-model');
+const middleware = require('./projects-middleware');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', middleware.validateProjectId, (req, res) => {
   Project.get(req.params.id)
     .then(result => {
       res.status(200).json(result);

@@ -4,6 +4,7 @@ const express = require('express');
 
 const Project = require('../projects/projects-model');
 const Action = require('./actions-model');
+const middleware = require('./actions-middleware');
 
 const router = express.Router();
 
