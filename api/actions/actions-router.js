@@ -18,27 +18,10 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Action.get(req.params.id)
     .then(result => {
-      res.status(200).json(result);
-    });
-});
-
-router.post('/', (req, res) => {
-  Action.insert(req.body)
-    .then(result => {
-      res.status(201).json(result);
-    })
-});
-
-router.put('/:id', (req, res) => {
-  Action.update(req.params.id, req.body)
-    .then(result => {
-      res.json(result);
-    });
-});
-
-router.delete('/:id', (req, res) => {
-  Action.remove(req.params.id)
-    .then(result => {
+      if (!result) {
+        res.status(404).json({ message: 'action with given id not found' });
+        return;
+      }
       res.status(200).json(result);
     });
 });
