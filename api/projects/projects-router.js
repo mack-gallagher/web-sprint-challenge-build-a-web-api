@@ -19,20 +19,16 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', middleware.validateProjectId, (req, res) => {
+
   Project.get(req.params.id)
     .then(result => {
-      if (!result) {
-        res.status(404).json({ message: 'project with given id not found' });
-        return;
-      }
       res.status(200).json(result);
-      return;
     })
     .catch(err => {
-      res.status(500).json({ message: 'Internal Server Error' });
-      return;
+      res.status(500).json({ message: 'internal server error' });
     })
+
 });
 
 router.post('/', (req, res) => {

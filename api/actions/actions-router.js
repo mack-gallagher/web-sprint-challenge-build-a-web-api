@@ -15,15 +15,13 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', middleware.validateActionId, (req, res) => {
+
   Action.get(req.params.id)
     .then(result => {
-      if (!result) {
-        res.status(404).json({ message: 'action with given id not found' });
-        return;
-      }
       res.status(200).json(result);
-    });
+    })
+
 });
 
 router.post('/', (req, res) => {
